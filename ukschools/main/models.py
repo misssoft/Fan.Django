@@ -49,8 +49,11 @@ PUPIL_GENDER_OPTIONS = (
 )
 
 class School (models.Model):
+    urn = models.CharField(max_length = 10, default = '')
     name = models.CharField(max_length = 250)
     phase = models.CharField(max_length = 1, choices = SCHOOL_PHASE_OPTIONS)
+    agemin = models.IntegerField(default = 0)
+    agemax = models.IntegerField(default = 0)
     type = models.CharField(max_length = 1, choices = SCHOOL_TYPE_OPTIONS)
     ofsted = models.CharField(max_length = 1, choices = OFSTED_RATING_OPTIONS)
     ofstedInspected = models.DateTimeField(auto_now=False)
@@ -58,6 +61,9 @@ class School (models.Model):
     gender = models.CharField(max_length = 1, default='M', choices = PUPIL_GENDER_OPTIONS)
     address = models.CharField(max_length = 100)
     postcode = models.CharField(max_length = 10)
+    headteacher = models.CharField(max_length = 50, default = '')
+    localauthority = models.CharField(max_length = 100, default = '')
+    capacity = models.IntegerField(default = 0)
 
     def __str__(self):
-        return self.name
+        return self.name + '(' + str(self.agemin) + '-' + str(self.agemax) + ')'
